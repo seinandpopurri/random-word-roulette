@@ -6,6 +6,9 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 
 const words: Record<"A" | "B" | "C", string[]> = {
@@ -75,7 +78,8 @@ export default function App() {
   const recordsCollection = collection(db, "records");
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(recordsCollection, (snapshot) => {
+    const q = query(recordsCollection, orderBy("timestamp", "desc")); // 🔄 최신 순
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -119,8 +123,12 @@ export default function App() {
 
   const handleOK = async () => {
     if (name.trim() === "") return;
-    const newEntry = { name, ...currentWord };
-    await addDoc(recordsCollection, newEntry); // Firestore에만 추가
+    const newEntry = {
+      name,
+      ...currentWord,
+      timestamp: serverTimestamp(), // ✅ 시간 필드 추가
+    };
+    await addDoc(recordsCollection, newEntry);
 
     setName("");
     setCurrentWord({ A: "A", B: "B", C: "C" });
