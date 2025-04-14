@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@keyframes colorful-caret {
+  0% {
+    caret-color: #ff6464;
+  }
+  33% {
+    caret-color: #009e61;
+  }
+  66% {
+    caret-color: #007aff;
+  }
+  100% {
+    caret-color: #ff6464;
+  }
+}
+
+.animated-caret {
+  animation: colorful-caret 1.5s infinite;
+}
