@@ -78,7 +78,7 @@ export default function App() {
   const recordsCollection = collection(db, "records");
 
   useEffect(() => {
-    const q = query(recordsCollection, orderBy("timestamp", "desc")); // 🔄 최신 순
+    const q = query(recordsCollection, orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -126,7 +126,7 @@ export default function App() {
     const newEntry = {
       name,
       ...currentWord,
-      timestamp: serverTimestamp(), // ✅ 시간 필드 추가
+      timestamp: serverTimestamp(),
     };
     await addDoc(recordsCollection, newEntry);
 
@@ -152,9 +152,7 @@ export default function App() {
       className="w-screen min-h-screen text-white font-bold"
       style={{ backgroundColor: "#d5ff3e" }}
     >
-      {/* 첫 화면 전체 */}
       <div className="h-screen flex flex-col">
-        {/* 이름 입력칸 */}
         <div
           className="flex justify-center items-center"
           style={{
@@ -171,7 +169,6 @@ export default function App() {
           />
         </div>
 
-        {/* ABC 룰렛 */}
         <div className="flex md:h-[70%] h-[55%]">
           {(["A", "B", "C"] as Category[]).map((cat) => (
             <div
@@ -187,7 +184,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* OK 버튼 */}
         <div
           className="flex justify-center items-center"
           style={{
@@ -205,7 +201,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* 기록 테이블 */}
       <div
         ref={tableRef}
         className="bg-transparent text-black px-6 py-10"
@@ -237,6 +232,23 @@ export default function App() {
           >
             Reset
           </button>
+        </div>
+        <br />
+        <div className="w-full flex justify-center mt-2">
+          <p className="text-[10px] text-gray-500 font-light text-center">
+            Made by{" "}
+            <a
+              href="https://instagram.com/seinandpopurri"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#007aff] transition-colors duration-200"
+            >
+              Sein Hong
+            </a>{" "}
+            for the HIVCD Communication Design (1) class.
+            <br />
+            But anyone can try it out
+          </p>
         </div>
       </div>
     </div>
