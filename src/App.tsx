@@ -245,7 +245,7 @@ export default function App() {
             >
               Sein Hong
             </a>{" "}
-            for the HIVCD Communication Design (1) class.
+            for the HIVCD Communication Design (1) class
             <br />
             But anyone can try it out
           </p>
